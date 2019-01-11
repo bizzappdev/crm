@@ -15,10 +15,10 @@ class CrmHelpdesk(models.Model):
         copy=False,
     )
 
-    #_sql_constraints = [
-    #    ('crm_helpdesk_unique_code', 'UNIQUE (code)',
-    #     'The code must be unique!'),
-    #]
+    _sql_constraints = [
+        ('crm_helpdesk_unique_code', 'UNIQUE (code)',
+         'The code must be unique!'),
+    ]
 
     @api.model
     def create(self, values):

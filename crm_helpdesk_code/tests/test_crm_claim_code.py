@@ -1,40 +1,38 @@
-# Copyright 2015 Tecnativa - Pedro M. Baeza <pedro.baeza@tecnativa.com>
-# Copyright 2015 AvanzOsc (http://www.avanzosc.es)
-# Copyright 2017 Tecnativa - Vicent Cubells <vicent.cubells@tecnativa.com>
+# Copyright 2019 Agent ERP GmbH
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 from odoo.tests import common
 
 
-class TestCrmClaimCode(common.SavepointCase):
+class TestCrmHelpdeskCode(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestCrmClaimCode, cls).setUpClass()
-        cls.crm_claim_model = cls.env['crm.claim']
+        super(TestCrmHelpdeskCode, cls).setUpClass()
+        cls.crm_helpdesk_model = cls.env['crm.helpdesk']
         cls.ir_sequence_model = cls.env['ir.sequence']
-        cls.crm_sequence = cls.env.ref('crm_claim_code.sequence_claim')
-        cls.crm_claim = cls.env['crm.claim'].create({
-            'name': 'Test Claim',
+        cls.crm_sequence = cls.env.ref('crm_helpdesk_code.sequence_helpdesk')
+        cls.crm_helpdesk = cls.env['crm.helpdesk'].create({
+            'name': 'Test Helpdesk',
         })
 
-    def test_old_claim_code_assign(self):
-        crm_claims = self.crm_claim_model.search([])
-        for crm_claim in crm_claims:
-            self.assertNotEqual(crm_claim.code, '/')
+    def test_old_helpdesk_code_assign(self):
+        crm_helpdesks = self.crm_helpdesk_model.search([])
+        for crm_helpdesk in crm_helpdesks:
+            self.assertNotEqual(crm_helpdesk.code, '/')
 
-    def test_new_claim_code_assign(self):
+    def test_new_helpdesk_code_assign(self):
         code = self._get_next_code()
-        crm_claim = self.crm_claim_model.create({
-            'name': 'Testing claim code',
+        crm_helpdesk = self.crm_helpdesk_model.create({
+            'name': 'Testing helpdesk code',
         })
-        self.assertNotEqual(crm_claim.code, '/')
-        self.assertEqual(crm_claim.code, code)
+        self.assertNotEqual(crm_helpdesk.code, '/')
+        self.assertEqual(crm_helpdesk.code, code)
 
-    def test_copy_claim_code_assign(self):
+    def test_copy_helpdesk_code_assign(self):
         code = self._get_next_code()
-        crm_claim_copy = self.crm_claim.copy()
-        self.assertNotEqual(crm_claim_copy.code, self.crm_claim.code)
-        self.assertEqual(crm_claim_copy.code, code)
+        crm_helpdesk_copy = self.crm_helpdesk.copy()
+        self.assertNotEqual(crm_helpdesk_copy.code, self.crm_helpdesk.code)
+        self.assertEqual(crm_helpdesk_copy.code, code)
 
     def _get_next_code(self):
         return self.crm_sequence.get_next_char(
