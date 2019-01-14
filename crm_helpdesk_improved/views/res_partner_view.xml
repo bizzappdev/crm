@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_form_i_helpdesk" model="ir.ui.view">
+            <field name="name">res.partner.form.i.helpdesk</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field eval="40" name="priority"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="replace" />
+                <field name="website" position="after">
+                    <field name="user_id" string="Verantwortlicher" />
+                </field>
+                <xpath expr="//page[@string='Profiling']" position="after">
+                    <page string="Helpdesk">
+                        <group string="Company's Helpdesk Tickets">
+                            <group>
+                                <field name="case_ids" nolabel="1" />
+                            </group>
+                        </group>
+                        <group string="Helpdesk Tickets accross all company">
+                            <group>
+                                <field name="child_case_ids" nolabel="1" />
+                            </group>
+                        </group>
+                        <label string="Eindeutiger Identifier für das Feedback
+                            Modul" for="unique_name" groups="crm_helpdesk_improved.group_crm_helpdesk_admin" />
+                        <field name="unique_name" groups="crm_helpdesk_improved.group_crm_helpdesk_admin" />
+                    </page>
+                </xpath>
+                <xpath expr="//form[@string='Contact']//sheet" position="inside">
+                    <group string="Contact's Helpdesk Tickets">
+                        <group>
+                            <field name="case_ids" nolabel="1" />
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+       <record id="view_res_partner_filter_helpdesk" model="ir.ui.view">
+            <field name="name">res.partner.select.helpdesk</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="before">
+                    <field name="dummy_partner_id" string="Kunde" />
+                    <separator/>
+                </field>
+                <field name="name" position="after">
+                   <field name="date" filter_domain="[('create_date', '&gt;=', self)]" />
+                   <separator/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

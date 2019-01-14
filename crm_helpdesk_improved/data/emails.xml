@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- mail.template for Helpdesk Tickets -->
+        <record id="crm_helpdesk_notify_responsible" model="mail.template">
+            <field name="name">New Ticket on CRM Helpdesk assigned to you</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.name} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.user_id.email or object.user_id.partner_id and object.user_id.partner_id.email}</field>
+            <field name="subject">Ihnen wurde ein neues Support Ticket zugewiesen:</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+<p>New Ticket [#${object.ticket_id}] on CRM Helpdesk assigned to you!</p>
+
+<p>Beschreibung: ${object.name}</p>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_oncreate" model="mail.template">
+            <field name="name">New Ticket has beend created</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">[#${object.ticket_id}] Beschreibung: ${object.name}</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+<p>Sehr geehrter Kunde ${object.partner_id.name}</p>
+<p>Es wurde ein neues Ticket für Sie erzeugt! [#${object.ticket_id}] !</p>
+
+<p>Beschreibung: ${object.name}</p>
+
+<p>Bitte antworten Sie immer auf diese Mail!</p>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_update" model="mail.template">
+            <field name="name">The Ticket has been updatet</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">[#${object.ticket_id}] Beschreibung: ${object.name}</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich jetzt im Status ${object.state}.
+
+<p>Beschreibung: ${object.name}</p>
+
+Bitte antworten Sie immer auf diese Mail!
+
+Sie werden über weitere Statusänderungen informiert.
+
+Bitte achten Sie darauf, dass für weitere Informationen ihrerseits in der Email immer die
+
+[#TicketID] in der Betreffzeile befindet, damit die Nachricht zugeordnet werden kann.
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_progress" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">[#${object.ticket_id}] Beschreibung: ${object.name}</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich jetzt im Status in Arbeit.
+
+<p>Beschreibung: ${object.name}</p>
+
+Bitte antworten Sie immer auf diese Mail!
+
+Sie werden über weitere Statusänderungen informiert.
+
+Bitte achten Sie darauf, dass für weitere Informationen ihrerseits in der Email immer die
+
+[#TicketID] in der Betreffzeile befindet, damit die Nachricht zugeordnet werden kann.
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_close" model="mail.template">
+            <field name="name">The Ticket wurde geschlossen</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde geschlossen</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich jetzt im Status beendet.
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_reopen" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich jetzt im Status offen.
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_pending" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich jetzt in der Entwicklung.
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_todeploy" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert. Das Bugfix wird Zeitnah in das Zielsystem eingespielt.
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_pexternal" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich im Status "Warten auf externe Partei".
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_pendingcustomer" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich im Status "Warten auf Kunden".
+
+<p>Beschreibung: ${object.name}</p>
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+        <record id="crm_helpdesk_notify_customer_feedback" model="mail.template">
+            <field name="name">The Ticket wurde aktualisiert</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.companysupportmail} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.partner_id and object.partner_id.email}</field>
+            <field name="subject">Ihr Ticket [#${object.ticket_id}] wurde aktualisiert</field>
+            <field name="lang">${object.partner_id.lang.code}</field>
+            <field name="body_html"><![CDATA[
+
+<pre wrap="">
+
+Hallo ${object.partner_id.name}
+
+Das Ticket [#${object.ticket_id}] wurde aktualisiert und befindet sich im Status Feedback.
+
+<p>Beschreibung: ${object.name}</p>
+
+Bitte teilen Sie uns mit ob das Problem gelöst wurde.
+
+Diese E-Mail wurde automatisch von unserem Trackingsystem generiert.
+
+Mit freundlichen Grüßen
+
+Ihr Agent ERP Team
+
+</pre>
+]]>
+            </field>
+        </record>
+
+
+
+
+
+
+
+        <record id="crm_helpdesk_notify_overdue" model="mail.template">
+            <field name="name">CRM Helpdesk Ticket overdue notification</field>
+            <field name="model_id" ref="model_crm_helpdesk"/>
+            <field name="email_from">${object.company_id.name} &lt;${object.categ_id and object.categ_id.email or object.company_id.email}&gt;</field>
+            <field name="email_to">${object.user_id.email}</field>
+            <field name="lang">${object.user_id.lang.code}</field>
+<!-- HERE -->
+            <field name="subject">[#${object.ticket_id}] CRM Helpdesk Ticket OVERDUE notification</field>
+<!-- HERE -->
+            <field name="body_html"><![CDATA[
+<p>[#${object.ticket_id}] CRM Helpdesk Ticket OVERDUE notification</p>
+
+<p>Beschreibung: ${object.name}</p>
+]]>
+            </field>
+        </record>
+
+    </data>
+</openerp>

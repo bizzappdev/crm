@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- crm.case.categ -->
+        <record id="crm_helpdesk_categ_support" model="crm.case.categ">
+            <field name="name">General Support</field>
+            <field name="default_user_id" eval="ref('base.user_root')" />
+            <field name="email">support@agenterp.com</field>
+            <field name="section_id"></field>
+            <field name="object_id" eval="ref('crm_helpdesk.model_crm_helpdesk')" />
+        </record>
+       </data>
+</openerp>

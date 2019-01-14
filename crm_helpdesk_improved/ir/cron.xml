@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record model="ir.cron" id="cronjob_notify_overdue_tickets">
+            <field name='name'>Notify overdue CRM Helpdesk Tickets</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall" eval="False" />
+            <field name="model">crm.helpdesk</field>
+            <field name="function">notify_overdue</field>
+            <field name="args">()</field>
+        </record>
+
+        <record model="ir.cron" id="cronjob_clean_overdue_messages">
+            <field name='name'>Clean overdue CRM Helpdesk Messages</field>
+            <field name='interval_number'>25</field>
+            <field name='interval_type'>hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active">True</field>
+            <field name="doall" eval="False" />
+            <field name="model">crm.helpdesk</field>
+            <field name="function">clean_overdue_messages</field>
+            <field name="args">()</field>
+        </record>
+
+    </data>
+</openerp>

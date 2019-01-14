@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+       <record id="check_new_cases_and_send_welcome" model="ir.cron">
+           <field name="name">Check New Cases and Send Welcome</field>
+           <field eval="True" name="active" />
+           <field name="user_id" ref="base.user_root" />
+           <field name="interval_number">1</field>
+           <field name="interval_type">minutes</field>
+           <field name="numbercall">-1</field>
+           <field eval="False" name="doall" />
+           <field eval="'crm.helpdesk'" name="model" />
+           <field eval="'send_welcome'" name="function" />
+           <field eval="'()'" name="args" />
+           <field name="priority">1000</field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="ir_actions_server_crm_helpdesk_incoming_email" model="ir.actions.server">
+            <field name="name">Set CRM Category - General Support</field>
+            <field name="sequence" eval="5"/>
+            <field name="state">code</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="crm_helpdesk_improved.model_crm_helpdesk"/>
+            <field name="code">self.pool.get('crm.helpdesk').create_partner_if_not_exists(cr, uid, context.get('active_ids', []), context=context)
+self.pool.get('crm.helpdesk').assign_category_and_responsible(cr, uid, context.get('active_ids', []), [('name', 'ilike', 'General Support')], context=context)</field>
+            <field name="condition">True</field>
+        </record>
+
+       </data>
+</openerp>

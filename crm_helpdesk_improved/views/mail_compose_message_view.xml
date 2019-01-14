@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="email_compose_message_wizard_form_i_crm">
+            <field name="name">mail.compose.message.form.i.crm</field>
+            <field name="model">mail.compose.message</field>
+            <field name="inherit_id" ref="mail.email_compose_message_wizard_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form/group//div" position="attributes">
+                    <attribute name="groups"></attribute>
+                </xpath>
+                <field name="partner_ids" position="attributes">
+                    <attribute name="attrs">{'required' : [('composition_mode','=','comment')]}</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

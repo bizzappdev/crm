@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crm_helpdesk_sale_link" model="ir.ui.view">
+            <field name="name">view.crm.helpdesk.sale.link</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term" position="after" >
+                    <field name="crm_helpdesk_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

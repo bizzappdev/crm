@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_crm_helpdesk_category_tree" model="ir.ui.view">
+            <field name="name">crm.helpdesk.category.tree</field>
+            <field name="model">crm.helpdesk.category</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Label">
+                <field name="name"/>
+                <field name="default_user_id" />
+                <field name="from_email" />
+                <field name="default" />
+            </tree>
+            </field>
+        </record>
+        <record id="view_crm_helpdesk_category_form" model="ir.ui.view">
+            <field name="name">crm.helpdesk.category.form</field>
+            <field name="model">crm.helpdesk.category</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Helpdesk Form">
+                <group>
+                    <field name="name"/>
+                    <field name="color" groups="base.group_no_one"/>
+                    <field name="default_user_id" />
+                    <field name="from_email" />
+                    <field name="default" />
+                <field name="color"/>
+                </group>
+            </form>
+            </field>
+        </record>
+        <record id="view_crm_helpdesk_category_search" model="ir.ui.view">
+            <field name="name">crm.helpdesk.category.search</field>
+            <field name="model">crm.helpdesk.category</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Helpdesk Search">
+                <field name="name" select="True"/>
+            </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="act_open_crm_helpdesk_category_view">
+            <field name="name">Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.helpdesk.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_crm_helpdesk_category_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_crm_helpdesk_category_view_form">
+            <field name="act_window_id" ref="act_open_crm_helpdesk_category_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_crm_helpdesk_category_form"/>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="act_open_crm_helpdesk_category_view_tree">
+            <field name="act_window_id" ref="act_open_crm_helpdesk_category_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_crm_helpdesk_category_tree"/>
+        </record>
+
+        <menuitem id="menu_crm_helpdesk_category"
+            parent="crm.crm_config_settings_menu"
+            sequence="20"
+            action="act_open_crm_helpdesk_category_view"/>
+    </data>
+</openerp>

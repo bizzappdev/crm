@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="crm_helpdesk_form_view_timesheets" model="ir.ui.view">
+        <field name="name">CRM - Helpdesk with timesheets</field>
+        <field name="model">crm.helpdesk</field>
+        <field name="inherit_id" ref="crm_helpdesk.crm_case_form_view_helpdesk"/>
+        <field name="arch" type="xml">
+            <field name="description" position="after">
+                <field name="project_id" />
+            </field>
+            <field name="description" position="after">
+                <notebook>
+                    <page string="Timesheet">
+                        <field name="timesheet_ids"
+                            context="{'default_project_id': project_id,
+                            'default_user_id': uid, 'from_helpdesk': True,
+                            'tree_view_ref': 'hr_timesheet.hr_timesheet_line_tree',}" />
+                    </page>
+                </notebook>
+            </field>
+        </field>
+    </record>
+</odoo>

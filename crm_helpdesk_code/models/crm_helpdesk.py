@@ -8,7 +8,7 @@ class CrmHelpdesk(models.Model):
     _inherit = "crm.helpdesk"
 
     code = fields.Char(
-        string='Helpdesk Number',
+        string='Ticket Number',
         required=True,
         default="/",
         readonly=True,

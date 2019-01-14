@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <record model="ir.module.category" id="base.module_category_crm_helpdesk">
+        <field name="name">CRM Helpdesk</field>
+        <field name="description"></field>
+        <field name="sequence">20</field>
+    </record>
+    <record model="res.groups" id="base.group_crm_helpdesk_user">
+        <field name="name">User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_crm_helpdesk"/>
+    </record>
+    <record model="res.groups" id="base.group_crm_helpdesk_admin">
+        <field name="name">Admin</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_crm_helpdesk_user'))]"/>
+        <field name="category_id" ref="base.module_category_crm_helpdesk"/>
+    </record>
+    <record id="base.default_user" model="res.users">
+        <field name="group_id" eval="[(4,
+            ref('base.group_crm_helpdesk_admin'))]"/>
+    </record>
+    <data noupdate="1">
+        <record id="crm_helpdesk_portal_ticket_rule" model="ir.rule">
+            <field name="name">CRM Helpdesk Tickets: portal users: portal or following</field>
+            <field name="model_id" ref="crm_helpdesk.model_crm_helpdesk"/>
+            <field name="domain_force">[
+                '|',
+                    ('message_partner_ids', 'child_of', [user.partner_id.commercial_partner_id.id]),
+                    ('message_partner_ids', 'in', [user.partner_id.id])
+            ]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
+        <record id="crm_helpdesk_ticket_company_rule" model="ir.rule">
+            <field name="name">CRM Helpdesk: multi-company</field>
+            <field name="model_id" ref="crm_helpdesk.model_crm_helpdesk"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',
+                                            ('company_id', '=', False),
+                                            ('company_id', 'child_of', [user.company_id.id]),
+                                        ]</field>
+        </record>
+    </data>
+</openerp>

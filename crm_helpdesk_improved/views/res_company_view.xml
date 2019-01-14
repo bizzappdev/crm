@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+         <record id="ideliziosi_view_company_form" model="ir.ui.view">
+            <field name="name">ideliziosi_res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="catchall"/>
+                    <field name="companysupportmail"/>
+                </field>
+                <field name="rml_header3" position="after">
+                    <field name="companyfooter" widget="html"/>
+                </field>
+            </field>
+         </record>
+    </data>
+</openerp>
